@@ -1,0 +1,13 @@
+.sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.results__container {
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

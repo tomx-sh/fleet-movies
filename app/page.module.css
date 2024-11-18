@@ -1,0 +1,6 @@
+.container {
+    height: 100vh;
+    overflow-y: hidden; /* Each cell content is responsible for its own scrolling behavior */
+    display: grid;
+    grid-template-columns: 300px 1fr;
+}
