@@ -3,7 +3,7 @@ import { mockMovieResults } from "./mock-data";
 import styles from "./sidebar.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Clapperboard } from "lucide-react";
+import { Search, Clapperboard, LoaderCircle } from "lucide-react";
 
 
 export interface MovieResult {
@@ -38,16 +38,31 @@ function SidebarView({status, results, onSearch, className}: SidebarViewProps) {
     return (
         <div className={`${styles.sidebar} ${className}`}>
 
+            {/* Logo */}
             <div className={styles.logo}>
                 <Clapperboard size={40}/>
                 <h1>FleetMovies</h1>
             </div>
 
+            {/* Search bar */}
             <form onSubmit={onSubmit} className={styles.search_bar}>
                 <input type="text" name="query" placeholder="Search movies"/>
-                <button type="submit"><Search size={20}/></button>
+                <button type="submit">
+                    {status === "loading" ? <LoaderCircle size={20} className={styles.loader}/> : <Search size={20}/>}
+                </button>
             </form>
 
+            {/* Error message */}
+            {status === "error" && (
+                <p className={styles.error}>An error occurred while fetching the data.</p>
+            )}
+
+            {/* No results message */}
+            {status === "idle" && results.length === 0 && (
+                <p className={styles.no_results}>No results found.</p>
+            )}
+
+            {/* Results list */}
             <div className={styles.results_container + (status === "loading" ? ` ${styles.loading}` : "")}>
                 {results.map(result => (
                     <Link
