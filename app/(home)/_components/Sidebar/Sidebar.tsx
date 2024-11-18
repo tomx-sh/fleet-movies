@@ -1,6 +1,9 @@
 'use client';
 import { mockMovieResults } from "./mock-data";
 import styles from "./sidebar.module.css";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Search, Clapperboard } from "lucide-react";
 
 
 export interface MovieResult {
@@ -23,6 +26,8 @@ interface SidebarProps {
 
 
 function SidebarView({status, results, onSearch, className}: SidebarViewProps) {
+    const pathname = usePathname();
+
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
@@ -33,17 +38,26 @@ function SidebarView({status, results, onSearch, className}: SidebarViewProps) {
     return (
         <div className={`${styles.sidebar} ${className}`}>
 
-            <form onSubmit={onSubmit}>
+            <div className={styles.logo}>
+                <Clapperboard size={40}/>
+                <h1>FleetMovies</h1>
+            </div>
+
+            <form onSubmit={onSubmit} className={styles.search_bar}>
                 <input type="text" name="query" placeholder="Search movies"/>
-                <button type="submit">Search</button>
+                <button type="submit"><Search size={20}/></button>
             </form>
 
-            <div className={styles.results__container}>
+            <div className={styles.results_container + (status === "loading" ? ` ${styles.loading}` : "")}>
                 {results.map(result => (
-                    <div key={result.id} className={styles.result}>
-                        <p>{result.title}</p>
-                        <p>{result.release_date.getFullYear()}</p>
-                    </div>
+                    <Link
+                        key={result.id}
+                        href={`/${result.id}`}
+                        className={styles.result_link + (pathname === `/${result.id}` ? ` ${styles.active}` : "")}
+                    >
+                        <p className={styles.title}>{result.title}</p>
+                        <p className={styles.date}>{result.release_date.getFullYear()}</p>
+                    </Link>
                 ))}
             </div>
 
@@ -60,6 +74,7 @@ export default function Sidebar({className}: SidebarProps) {
             status="idle"
             results={data}
             onSearch={() => {}}
+            onSelect={() => {}}
             className={className}
         />
     )

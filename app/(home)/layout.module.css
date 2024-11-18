@@ -2,5 +2,8 @@
     height: 100vh;
     overflow-y: hidden; /* Each cell content is responsible for its own scrolling behavior */
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 400px 1fr;
+    padding: 1rem;
+    gap: 1rem;
+    background-color: var(--background);
 }

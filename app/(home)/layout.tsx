@@ -1,13 +1,11 @@
-import styles from "./page.module.css";
+import styles from "./layout.module.css";
 import Sidebar from "./_components/Sidebar/Sidebar";
 
-export default function Home() {
+export default function Layout({children}: {children: React.ReactNode}) {
     return (
         <div className={styles.container}>
             <Sidebar className={styles.sidebar} />
-            <main className={styles.main}>
-                <p>Hello</p>
-            </main>
+            {children}
         </div>
-    );
-}
+    )
+};
