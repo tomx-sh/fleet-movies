@@ -31,7 +31,7 @@
 .search_bar input {
     flex: 1;
     padding: 0.5rem;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     border: 2px solid var(--accent-light);   
 }
 
@@ -58,6 +58,13 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.initial_message {
+    color: var(--accent-light);
+    font-size: 0.8rem;
+    text-align: center;
+    margin: auto;
 }
 
 .error {
