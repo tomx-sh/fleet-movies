@@ -1,5 +1,5 @@
 'use client'
-import searchMovies from "@/app/api/search-movies/wrapper";
+import searchMovies from "@/app/api/search-movies/wrapper.client";
 import adaptMovieSearchResponse from "./adapter";
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
