@@ -1,5 +1,6 @@
 import { MovieResult } from "./Sidebar";
 
+/** Use this mock data to test out the SidebarView component */
 const mockMovieResults: MovieResult[] = [
     { id: 1, title: "The Shawshank Redemption", release_date: new Date("1994-09-23") },
     { id: 2, title: "The Godfather", release_date: new Date("1972-03-24") },
