@@ -1,4 +1,4 @@
-import { MovieResult } from "./Sidebar";
+import { MovieResult } from "./SidebarView";
 import { ApiMovieSearchResponse } from "@/app/api/search-movies/types";
 
 /**

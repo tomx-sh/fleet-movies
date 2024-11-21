@@ -16,6 +16,7 @@
     align-items: center;
     gap: 0.5rem;
     color: var(--accent);
+    text-decoration: none;
 }
 
 .logo h1 {

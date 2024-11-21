@@ -1,4 +1,4 @@
-import { MovieResult } from "./Sidebar";
+import { MovieResult } from "./SidebarView";
 
 /** Use this mock data to test out the SidebarView component */
 const mockMovieResults: MovieResult[] = [
