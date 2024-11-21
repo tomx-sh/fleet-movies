@@ -18,16 +18,17 @@ export default function Sidebar() {
     const [status, setStatus] = useState<SidebarViewProps['status']>('initial');
     const [data, setData] = useState<MovieResult[]>([])
     const searchParams = useSearchParams();
-    const query = searchParams.get('query');
+    const query = searchParams.get('query') || undefined;
 
     // When the user submits the search form, update the URL query param
     const handleSearch = (query: string) => {
-        router.push(`?query=${query}`);
+        const newSearchParams = new URLSearchParams({ query: query });
+        router.push(`?${newSearchParams.toString()}`);
     }
 
     // Fetch movies from the API
     // useCallback is not necessary anymore with React 19!
-    const search = async (query: string | null) => {
+    const search = async (query: string | undefined) => {
         if (!query) {
             setStatus('initial');
             setData([]);
@@ -56,6 +57,7 @@ export default function Sidebar() {
             status={status}
             results={data}
             onSearch={handleSearch}
+            initialQuery={query}
         />
     )
 };

@@ -22,6 +22,7 @@ export interface SidebarViewProps {
     status: Status;
     results: MovieResult[];
     onSearch: (query: string) => void;
+    initialQuery?: string; // Initial value in the search bar
 }
 
 
@@ -30,7 +31,7 @@ export interface SidebarViewProps {
  * This component is composed of a logo, a search bar, and a list of search results, or potential error messages.
  * It allows the user to search for movies and select one to view its details.
  */
-export default function SidebarView({status, results, onSearch }: SidebarViewProps) {
+export default function SidebarView({status, results, onSearch, initialQuery }: SidebarViewProps) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
@@ -44,7 +45,7 @@ export default function SidebarView({status, results, onSearch }: SidebarViewPro
     return (
         <div className={styles.sidebar}>
 
-            {/* Logo */}
+            {/* Logo (serves also as a home button */}
             <Link className={styles.logo} href="/">
                 <Clapperboard size={40}/>
                 <h1>FleetMovies</h1>
@@ -52,7 +53,7 @@ export default function SidebarView({status, results, onSearch }: SidebarViewPro
 
             {/* Search bar */}
             <form onSubmit={onSubmit} className={styles.search_bar}>
-                <input type="text" name="query" placeholder="Search movies" required/>
+                <input type="text" name="query" placeholder="Search movies" defaultValue={initialQuery} required/>
                 <button type="submit">
                     {status === "loading" ? <LoaderCircle size={20} className={styles.loader}/> : <Search size={20}/>}
                 </button>
