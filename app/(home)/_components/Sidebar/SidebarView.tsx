@@ -3,13 +3,14 @@ import styles from "./SidebarView.module.css";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Search, Clapperboard, LoaderCircle } from "lucide-react";
+import Row, { RowProps } from "./Row/Row";
 
 
-/** The data displayed in a row of the list of results */
-export interface MovieResult {
-    id: number;
-    title: string;
-    release_date?: Date;
+export interface SidebarViewProps {
+    status: Status;
+    results: MovieResult[];
+    onSearch: (query: string) => void;
+    initialQuery?: string; // Initial value in the search bar
 }
 
 type Status =
@@ -18,11 +19,15 @@ type Status =
     | 'loading' // Fetching data is in progress
     | 'error';  // Error fetching data
 
-export interface SidebarViewProps {
-    status: Status;
-    results: MovieResult[];
-    onSearch: (query: string) => void;
-    initialQuery?: string; // Initial value in the search bar
+
+/**
+ * Data needed to display a movie in the sidebar.
+ * It corresponds to the props of the Row component,
+ * minus the href and active props,
+ * which are derived from the `id` and the current URL.
+ */
+export interface MovieResult extends Omit<RowProps, "href" | "active"> {
+    id: number;
 }
 
 
@@ -76,14 +81,16 @@ export default function SidebarView({status, results, onSearch, initialQuery }: 
             {/* Results list */}
             <div className={styles.results_container + (status === "loading" ? ` ${styles.loading}` : "")}>
                 {results.map(result => (
-                    <Link
+                    <Row
                         key={result.id}
                         href={`/${result.id}?${searchParams.toString()}`} // Preserve the search params in the URL
-                        className={styles.result_link + (pathname === `/${result.id}` ? ` ${styles.active}` : "")}
-                    >
-                        <p className={styles.title}>{result.title}</p>
-                        <p className={styles.date}>{result.release_date?.getFullYear() || "Unknown"}</p>
-                    </Link>
+                        active={pathname === `/${result.id}`}
+                        title={result.title}
+                        releaseDate={result.releaseDate}
+                        posterUrl={result.posterUrl}
+                        voteAverage={result.voteAverage}
+                        voteCount={result.voteCount}
+                    />
                 ))}
             </div>
 
