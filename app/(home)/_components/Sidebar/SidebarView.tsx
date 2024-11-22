@@ -55,7 +55,11 @@ export default function SidebarView({status, results, onSearch, initialQuery }: 
             <form onSubmit={onSubmit} className={styles.search_bar}>
                 <input type="text" name="query" placeholder="Search movies" defaultValue={initialQuery} required/>
                 <button type="submit">
-                    {status === "loading" ? <LoaderCircle size={20} className={styles.loader}/> : <Search size={20}/>}
+                    {
+                        status === "loading" ?
+                        <LoaderCircle size={15} strokeWidth={3} className={styles.loader}/>
+                        : <Search size={15} strokeWidth={3}/>
+                    }
                 </button>
             </form>
 
