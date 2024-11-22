@@ -63,11 +63,6 @@ export default function SidebarView({status, results, onSearch, initialQuery }: 
                 </button>
             </form>
 
-            {/* Initial message */}
-            {status === "initial" && (
-                <Clapperboard className={styles.initial_message}/>
-            )}
-
             {/* No results message */}
             {status === "idle" && results.length === 0 && (
                 <p className={styles.no_results}>No results found.</p>
